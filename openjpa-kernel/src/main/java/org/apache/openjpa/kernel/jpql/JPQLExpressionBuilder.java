@@ -2479,6 +2479,8 @@ public class JPQLExpressionBuilder
     /**
      * Public for unit testing purposes.
          */
+    // QUESTA CLASSE ANNIDATA SI OCCUPA DI CREARE L'ALBERO AST, QUINDI PRENDE LA QUERY STRING E TORNA AST
+        //TODO
     public static class ParsedJPQL implements Serializable {
         private static final long serialVersionUID = 1L;
 
@@ -2502,11 +2504,15 @@ public class JPQLExpressionBuilder
             this.query = query;
         }
 
+        // QUESTA CHIAMA IL PARSER CHE CREA L'AST
+        // TODO
         private static JPQLNode parse(String jpql) {
             if (jpql == null)
                 jpql = "";
 
             try {
+                // JPQL È LA MACCHINA A STATI CHE FA IL PARSE
+                // TODO
                 return (JPQLNode) new JPQL(jpql).parseQuery();
             } catch (Error e) {
                 // special handling for Error subclasses, which the

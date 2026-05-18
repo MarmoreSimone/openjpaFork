@@ -42,6 +42,9 @@ public class JPQLParser
         Localizer.forPackage(JPQLParser.class);
     public static final String LANG_JPQL = "jakarta.persistence.JPQL";
 
+    //1
+    // QUI VIENE FATTO IL PRIMO PASSAGGIO DA STRINGA AD AST
+    // TODO
     @Override
     public Object parse(String ql, ExpressionStoreQuery query) {
         if (query.getContext().getParameterDeclaration() != null)
@@ -55,6 +58,7 @@ public class JPQLParser
         }
     }
 
+    //2
     @Override
     public void populate(Object parsed, ExpressionStoreQuery query) {
         if (!(parsed instanceof JPQLExpressionBuilder.ParsedJPQL))
@@ -64,6 +68,7 @@ public class JPQLParser
         ((JPQLExpressionBuilder.ParsedJPQL) parsed).populate(query);
     }
 
+    //3
     @Override
     public QueryExpressions eval(Object parsed, ExpressionStoreQuery query,
         ExpressionFactory factory, ClassMetaData candidate) {
