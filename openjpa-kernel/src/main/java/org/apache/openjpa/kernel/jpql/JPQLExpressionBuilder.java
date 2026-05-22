@@ -2522,6 +2522,8 @@ public class JPQLExpressionBuilder
             }
         }
 
+
+        // verifica se la classe candidata del FROM esiste
         void populate(ExpressionStoreQuery query) {
             QueryContext ctx = query.getContext();
 

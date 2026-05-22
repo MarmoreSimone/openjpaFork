@@ -59,22 +59,23 @@ public class JPQLParser
     }
 
     //2
+    // VERIFICA SE LA CLASSE CANDIDATA ESISTE
     @Override
     public void populate(Object parsed, ExpressionStoreQuery query) {
+        // verifica che l'oggetto sia effettivamente di tipo ParsedJPQL, l'AST sta dentro parsed è il root di tipo JPQLNode
         if (!(parsed instanceof JPQLExpressionBuilder.ParsedJPQL))
-            throw new ClassCastException(parsed == null ? null + ""
-                : parsed.getClass().getName());
+            throw new ClassCastException(parsed == null ? null + "" : parsed.getClass().getName());
 
         ((JPQLExpressionBuilder.ParsedJPQL) parsed).populate(query);
     }
 
     //3
+    //QUI VIENE FATTO IL PASSAGGIO DA AST A EXPRESSION
     @Override
     public QueryExpressions eval(Object parsed, ExpressionStoreQuery query,
         ExpressionFactory factory, ClassMetaData candidate) {
         try {
-            return new JPQLExpressionBuilder(factory, query, parsed).
-                getQueryExpressions();
+            return new JPQLExpressionBuilder(factory, query, parsed).getQueryExpressions();
         } catch (OpenJPAException ke) {
             throw ke;
         } catch (Exception e) {
