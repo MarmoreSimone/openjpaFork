@@ -2479,7 +2479,7 @@ public class JPQLExpressionBuilder
     /**
      * Public for unit testing purposes.
          */
-    // QUESTA CLASSE ANNIDATA SI OCCUPA DI CREARE L'ALBERO AST, QUINDI PRENDE LA QUERY STRING E TORNA AST
+    // QUESTA CLASSE ANNIDATA SI OCCUPA DI CREARE L'ALBERO AST, QUINDI PRENDE LA QUERY STRING E TORNA AST NEL SUO STATO
         //TODO
     public static class ParsedJPQL implements Serializable {
         private static final long serialVersionUID = 1L;
@@ -2504,14 +2504,14 @@ public class JPQLExpressionBuilder
             this.query = query;
         }
 
-        // QUESTA CHIAMA IL PARSER CHE CREA L'AST
+        // QUESTA CHIAMA IL PARSER VERO E PROPRIO CHE CREA L'AST
         // TODO
         private static JPQLNode parse(String jpql) {
             if (jpql == null)
                 jpql = "";
 
             try {
-                // JPQL È LA MACCHINA A STATI CHE FA IL PARSE
+                //MACCHINA A STATI CHE FA IL PARSE
                 // TODO
                 return (JPQLNode) new JPQL(jpql).parseQuery();
             } catch (Error e) {
@@ -2523,7 +2523,7 @@ public class JPQLExpressionBuilder
         }
 
 
-        // verifica se la classe candidata del FROM esiste
+        // verifica se la classe candidata del FROM esiste e la imposta nello stato
         void populate(ExpressionStoreQuery query) {
             QueryContext ctx = query.getContext();
 

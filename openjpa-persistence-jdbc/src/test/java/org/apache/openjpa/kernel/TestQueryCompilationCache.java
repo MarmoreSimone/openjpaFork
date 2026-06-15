@@ -57,8 +57,7 @@ public class TestQueryCompilationCache
 
         // dig into the entry and check its internal state
         Compilation comp = (Compilation) cache.values().iterator().next();
-        assertEquals(NamedEntity.class,
-            ((ParsedJPQL) comp.storeData).getCandidateType());
+        assertEquals(NamedEntity.class, ((ParsedJPQL) comp.storeData).getCandidateType());
 
         emf.close();
     }
