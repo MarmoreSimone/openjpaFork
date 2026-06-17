@@ -22,6 +22,5 @@ jobs:
           cache: maven
 
       - name: esecuzione test
-        run: mvn -B test -Dtest=TestParsedJPQL -Dcheckstyle.skip=true -DfailIfNoTests=false
-
+        run: mvn -B test -Dtest=TestParsedJPQL -Dcheckstyle.skip=true -Dsurefire.failIfNoSpecifiedTests=false
 
