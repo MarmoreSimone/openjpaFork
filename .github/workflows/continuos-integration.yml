@@ -2,7 +2,7 @@ name: continuos-integration.yml
 
 on:
   push:
-    branches: [ "master", "main" ] # Modifica in base al branch su cui lavori
+    branches: [ "master", "main" ]
   pull_request:
     branches: [ "master", "main" ]
 
@@ -10,21 +10,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout del codice
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v4
 
-  - name: Setup JDK
-    uses: actions/setup-java@v4
-    with:
-      java-version: '11'
-      distribution: 'temurin'
-      cache: maven
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
 
-  - name: Compilazione e creazione JAR (evita l'errore MDEP-98)
-    run: mvn install -DskipTests -Dcheckstyle.skip=true
+      - name: Compilazione e creazione JAR (Fix MDEP-98)
+        run: mvn -B install -DskipTests -Dcheckstyle.skip=true
 
-  - name: Esecuzione Test ParsedJPQL
-    run: mvn test -Dtest=TestParsedJPQL -Dcheckstyle.skip=true -Dsurefire.failIfNoSpecifiedTests=false
-
+      - name: Esecuzione Test ParsedJPQL
+        run: mvn -B test -Dtest=TestParsedJPQL -Dcheckstyle.skip=true -Dsurefire.failIfNoSpecifiedTests=false
 
