@@ -21,8 +21,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Compilazione e creazione JAR
-        run: mvn install -DskipTests -Dcheckstyle.skip=true
+      - name: esecuzione test
+        run: mvn -B test -Dtest=TestParsedJPQL -Dcheckstyle.skip=true -DfailIfNoTests=false
 
-      - name: Esecuzione Test ParsedJPQL
-        run: mvn test -Dtest=TestParsedJPQL -Dcheckstyle.skip=true -Dsurefire.failIfNoSpecifiedTests=false
+
