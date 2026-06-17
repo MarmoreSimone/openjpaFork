@@ -21,9 +21,9 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Compilazione e creazione JAR (Fix MDEP-98)
+      - name: Compilazione e creazione JAR
         run: mvn -B install -DskipTests -Dcheckstyle.skip=true
 
       - name: Esecuzione Test ParsedJPQL
-        run: mvn -B test -Dtest=TestParsedJPQL -Dcheckstyle.skip=true -Dsurefire.failIfNoSpecifiedTests=false
+        run: mvn -B test -Dtest=TestSuite -Dcheckstyle.skip=true -Dsurefire.failIfNoSpecifiedTests=false
 
