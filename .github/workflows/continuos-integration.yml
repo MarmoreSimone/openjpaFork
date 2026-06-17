@@ -1,0 +1,27 @@
+name: continuos-integration.yml
+
+on:
+  push:
+    branches: [ "master", "main" ] # Modifica in base al branch su cui lavori
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: esecuzione test
+        run: mvn -B test -Dtest=TestParsedJPQL -Dcheckstyle.skip=true
+
+
