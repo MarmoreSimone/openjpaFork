@@ -2535,6 +2535,7 @@ public class JPQLExpressionBuilder
                         (null, query, this).getCandidateType();
                 ctx.setCandidateType(_candidateType, true);
             }
+
         }
 
         /**
