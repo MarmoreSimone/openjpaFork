@@ -22,7 +22,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import static org.junit.Assert.*;
 
-public class TestParsedJPQL {
+public class TestParser {
 
     // Query errate
     private static final String NULL_STRING = null;

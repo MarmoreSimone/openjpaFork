@@ -23,7 +23,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        TestParsedJPQL.class
+        TestParser.class,
+        TestParserFacade.class
 })
 public class TestSuite {
 }
