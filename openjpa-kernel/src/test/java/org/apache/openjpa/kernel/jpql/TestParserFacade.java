@@ -29,8 +29,7 @@ public class TestParserFacade {
     @Test
     public void stringNull() {
         Assert.assertThrows(
-                "Ci si aspetta un'eccezione con input null",
-                UserException.class, // ParseException estende UserException
+                ParseException.class,
                 () -> new JPQLExpressionBuilder.ParsedJPQL(null)
         );
     }
@@ -39,25 +38,59 @@ public class TestParserFacade {
     @Test
     public void stringEmpty() {
         Assert.assertThrows(
-                "Ci si aspetta un'eccezione con input vuoto",
-                UserException.class,
+                ParseException.class,
                 () -> new JPQLExpressionBuilder.ParsedJPQL("")
         );
     }
 
     //TC3
+    // struttura della query invertita
     @Test
-    public void queryMalformata() {
+    public void syntacticErrorInQuery() {
         Assert.assertThrows(
-                "Ci si aspetta un'eccezione per errore sintattico",
-                UserException.class,
+                ParseException.class,
                 () -> new JPQLExpressionBuilder.ParsedJPQL("FROM User u SELECT u")
         );
     }
 
-   //TC4
+    //TC4
+    // il @ é un carattere non riconosciuto
     @Test
-    public void QueryValida() throws Exception {
+    public void lexicalErrorInQuery() {
+        Assert.assertThrows(
+                UserException.class,
+                () -> new JPQLExpressionBuilder.ParsedJPQL("@ User u SELECT u")
+        );
+    }
+
+    //TC5
+    // generiamo una query con 10.000 parentesi annidate per forzare la ricorsione infinita del parser e
+    // mandare in overflow lo stack
+    @Test
+    public void queryStackOverflow() {
+
+        int k = 10000;
+        StringBuilder query = new StringBuilder();
+
+        query.append("SELECT e FROM Entity e WHERE ");
+        for (int i = 0; i < k; i++) {
+            query.append("(");
+        }
+        query.append("e.id = 1");
+        for (int i = 0; i < k; i++) {
+            query.append(")");
+        }
+
+        Assert.assertThrows(
+                UserException.class,
+                () -> new JPQLExpressionBuilder.ParsedJPQL(query.toString())
+        );
+
+    }
+
+   //TC6
+    @Test
+    public void queryValida() throws Exception {
         String queryValida = "SELECT u FROM User u";
         JPQLExpressionBuilder.ParsedJPQL parsedJPQL = new JPQLExpressionBuilder.ParsedJPQL(queryValida);
 
@@ -70,6 +103,6 @@ public class TestParserFacade {
         Object rootValue = rootField.get(parsedJPQL);
         Assert.assertNotNull("L'AST (il nodo root) è nullo, il parsing è fallito", rootValue);
     }
-
-
 }
+
+

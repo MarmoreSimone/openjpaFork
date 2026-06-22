@@ -108,8 +108,7 @@ public class JPQLExpressionBuilder
      * and class names used in the query
      * @param parsedQuery the parsed query
      */
-    public JPQLExpressionBuilder(ExpressionFactory factory,
-        ExpressionStoreQuery query, Object parsedQuery) {
+    public JPQLExpressionBuilder(ExpressionFactory factory, ExpressionStoreQuery query, Object parsedQuery) {
         super(factory, query.getResolver());
 
         contexts.push(new Context(parsedQuery instanceof ParsedJPQL
@@ -178,8 +177,7 @@ public class JPQLExpressionBuilder
 
     private ClassMetaData getClassMetaData(String alias, boolean assertValid) {
         ClassLoader loader = getClassLoader();
-        MetaDataRepository repos = resolver.getConfiguration().
-            getMetaDataRepositoryInstance();
+        MetaDataRepository repos = resolver.getConfiguration().getMetaDataRepositoryInstance();
 
         // first check for the alias
         ClassMetaData cmd = repos.getMetaData(alias, loader, false);
@@ -2531,8 +2529,7 @@ public class JPQLExpressionBuilder
             // any candidate class, then set it here
             if (ctx.getCandidateType() == null) {
                 if (_candidateType == null)
-                    _candidateType = new JPQLExpressionBuilder
-                        (null, query, this).getCandidateType();
+                    _candidateType = new JPQLExpressionBuilder(null, query, this).getCandidateType();
                 ctx.setCandidateType(_candidateType, true);
             }
 
